@@ -5,7 +5,7 @@ using Unity.Collections;
 
 public struct OnKillData : IComponentData
 {
-    public NativeString64 sfxName;
-    public Entity spawnPrefab;
-    public int pointValue;
+    public NativeString64 SfxName;
+    public Entity PrefabSpawned;
+    public int PointValue;
 }

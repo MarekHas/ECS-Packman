@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 596577891852169310}
   - component: {fileID: 7851769409960692897}
   - component: {fileID: 3816775623718114063}
+  - component: {fileID: 9132591713054485976}
   m_Layer: 0
   m_Name: DotPickup
   m_TagString: Untagged
@@ -181,3 +182,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 10
+--- !u!114 &9132591713054485976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2279968600402470825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a778268c6e84ac84495191cd4d98d920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SfxName: 
+  prefabSpawned: {fileID: 0}
+  PointValue: 0

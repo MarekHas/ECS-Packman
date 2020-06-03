@@ -18,7 +18,7 @@ public class DamageSystem : SystemBase
                 {
                     healthData.healthValue -= GetComponent<DamageData>(collisions[i].entity).damgeValue;
                     healthData.healthTimer = 1;
-                    
+                    AudioManager.Instance.PlaySfx(healthData.damageSfx.ToString());
                 }
             }
         }).WithoutBurst().Run();
@@ -30,7 +30,7 @@ public class DamageSystem : SystemBase
                 healthData.healthTimer -= deltaTime;
                 if (healthData.healthValue <= 0)
                 {
-                   
+                    AudioManager.Instance.PlaySfx(healthData.deathSfx.ToString());
                     EntityManager.AddComponentData(entity, new KillData() { timer = healthData.deathTimer });
                 }
 
@@ -47,17 +47,17 @@ public class DamageSystem : SystemBase
                 if (HasComponent<OnKillData>(entity))
                 {
                     var onKill = GetComponent<OnKillData>(entity);
-            
+                    AudioManager.Instance.PlaySfx(onKill.SfxName.ToString());
+                    GameManager.Instance.AddPoints(onKill.PointValue);
 
-                    if (EntityManager.Exists(onKill.spawnPrefab))
+                    if (EntityManager.Exists(onKill.PrefabSpawned))
                     {
-                        var spawnedEntity = entityCommandBufferSystem.Instantiate(onKill.spawnPrefab);
+                        var spawnedEntity = entityCommandBufferSystem.Instantiate(onKill.PrefabSpawned);
                         entityCommandBufferSystem.AddComponent(spawnedEntity, translation);
                         entityCommandBufferSystem.AddComponent(spawnedEntity, rotation);
                     }
 
                 }
-
                 entityCommandBufferSystem.DestroyEntity(entity);
             }
         }).WithoutBurst().Run();

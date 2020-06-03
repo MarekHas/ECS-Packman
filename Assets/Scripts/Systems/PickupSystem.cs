@@ -18,6 +18,7 @@ public class PickupSystem : SystemBase
                     if (HasComponent<PointsData>(entity) && !HasComponent<KillData>(entity))
                     {
                         entityCommandBuffer.AddComponent(entity, new KillData() { timer = 0 });
+                        GameManager.Instance.AddPoints(GetComponent<PointsData>(entity).points);
                     }
 
                     if (HasComponent<PickupPowerUpData>(entity) && !HasComponent<KillData>(entity))

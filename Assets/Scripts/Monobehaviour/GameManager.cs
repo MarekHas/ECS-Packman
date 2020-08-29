@@ -18,13 +18,13 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         Reset();
-        NextLevel();
     }
 
     public void Reset()
     {
         SwithUIPanels(StartGamePanel);
         Score = 0;
+        LoadLevel(0);
     }
 
     public void InGame()
@@ -82,7 +82,34 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         InGame();
+     
+        LoadLevel(Level + 1);
     }
 
+    public void LoadLevel(int newLevel)
+    {
+        if (newLevel > 2)
+        {
+            Reset();
+            return;
+        }
 
+        UnloadLevel();
+        Level = newLevel;
+        SceneManager.LoadScene("Test Level " + Level, LoadSceneMode.Additive);
+        Debug.Log("Load Scene : " + Level);
+    }
+
+    public void UnloadLevel()
+    {
+        var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        foreach (Entity e in entityManager.GetAllEntities())
+            entityManager.DestroyEntity(e);
+
+        if (SceneManager.GetSceneByName("Test Level " + Level).isLoaded)
+        {
+            SceneManager.UnloadSceneAsync("Test Level " + Level);
+            Debug.Log("Unload Scene : "+ Level);
+        }
+    }
 }
